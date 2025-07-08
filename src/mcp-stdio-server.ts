@@ -79,7 +79,8 @@ class BabylonMCPServer {
         // Handle response from browser
         const resolver = this.pendingResponses.get(message.id)
         if (resolver) {
-          resolver(message.result)
+          // The browser sends back {success, message} not {result}
+          resolver(message)
           this.pendingResponses.delete(message.id)
         }
         break
@@ -103,7 +104,7 @@ class BabylonMCPServer {
     const message = {
       id,
       type: 'command',
-      command,
+      command,  // This will now be the formatted command string
       params
     }
 
@@ -216,8 +217,30 @@ class BabylonMCPServer {
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
       const { name, arguments: args } = request.params
 
+      // Map MCP tool names to browser command names
+      const commandMap: Record<string, string> = {
+        'create_object': 'create',
+        'delete_object': 'delete',
+        'select_object': 'select',
+        'list_objects': 'list'
+      }
+
+      const browserCommand = commandMap[name] || name
+
       try {
-        const result = await this.sendCommandToBrowser(name, args)
+        // Format the complete command string for the browser
+        let fullCommand = browserCommand
+        
+        if (name === 'create_object' && args) {
+          // Format: "create [shape] [name]"
+          fullCommand = `${browserCommand} ${args.shape} ${args.name}`
+        } else if ((name === 'delete_object' || name === 'select_object') && args) {
+          // Format: "delete [name]" or "select [name]"
+          fullCommand = `${browserCommand} ${args.name}`
+        }
+        // For list_objects, just send "list"
+
+        const result = await this.sendCommandToBrowser(fullCommand, args)
         
         return {
           content: [
