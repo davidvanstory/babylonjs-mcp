@@ -1,0 +1,3 @@
+I want this Babylon.js MCP to operate in the browser. This should be open source. And I want the general user flow for a person to input a text conversation. And for that to generate a 3D object using Babylon.js. 
+I want it to be structured like the Blender MCP, where a user can input their commands and generate 3D objects. The commands that I want to initially have are a create command, which allows the user to create an object and a delete command, which allows the user to delete an object and a select command, which allows a user to click and specify a specific 3D object in the scene that they want to delete.
+

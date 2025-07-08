@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "babylonjs": {
+      "command": "node",
+      "args": ["/Users/david/code/Gauntlet/babylonjs-mcpV2/dist/mcp-stdio-server.js"]
+    }
+  }
+}

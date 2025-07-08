@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babylon.js MCP Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #renderCanvas {
+            flex: 1;
+            width: 100%;
+            touch-action: none;
+        }
+        
+        #controls {
+            background: #f0f0f0;
+            padding: 20px;
+            border-top: 1px solid #ccc;
+        }
+        
+        #commandInput {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        #sendButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        #sendButton:hover {
+            background: #45a049;
+        }
+        
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #4CAF50;
+            background: #f9f9f9;
+        }
+        
+        .error {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    
+    <div id="controls">
+        <h2>Babylon.js MCP Test Interface</h2>
+        <p>Available commands:</p>
+        <ul>
+            <li><strong>create [shape] [name]</strong> - Create a 3D object (box, sphere, cylinder, cone, torus)</li>
+            <li><strong>delete [name]</strong> - Delete an object by name</li>
+            <li><strong>select [name]</strong> - Select an object by name</li>
+            <li><strong>list</strong> - List all objects in the scene</li>
+        </ul>
+        
+        <div>
+            <input type="text" id="commandInput" placeholder="Enter command (e.g., 'create box myBox')" />
+            <button id="sendButton">Send Command</button>
+        </div>
+        
+        <div id="output"></div>
+    </div>
+
+    <!-- Load our compiled vanilla JS -->
+    <script type="module" src="/src/vanilla/index.ts"></script>
+</body>
+</html>
